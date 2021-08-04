@@ -35,16 +35,48 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     # 3rd party apps
     'crispy_forms',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',  # new
+    'allauth.socialaccount.providers.github',  # new
     # my apps:
     'accounts',
     'pages',
 ]
+# django-allauth config
+SITE_ID = 1
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# default user in project
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# DJANGO ALLAUTH SETTINGS
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT = 'home'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+# وقتی قراره ایمیل توی کنسول بیاد
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# ایمیل واقعی از اس ام تی پی گوگل
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ftmrzh1400@gmail.com'
+EMAIL_HOST_PASSWORD = 'F'
+
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,7 +167,7 @@ STATICFILES_FINDERS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
+DEFAULT_FROM_EMAIL = 'admin@djangobookstore.com'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
